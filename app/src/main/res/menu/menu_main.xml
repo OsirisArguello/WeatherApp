@@ -2,9 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tdp2.weatherapp.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/cities_button"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="always"
+        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"/>
 </menu>

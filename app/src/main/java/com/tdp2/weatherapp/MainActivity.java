@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Nombre de la ciudad");
+        StorageUtil storageUtil = new StorageUtil(MainActivity.this);
+        toolbar.setTitle(storageUtil.getCityName());
 
         setSupportActionBar(toolbar);
 
@@ -69,4 +70,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

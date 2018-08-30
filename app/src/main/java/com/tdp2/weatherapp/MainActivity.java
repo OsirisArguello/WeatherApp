@@ -12,12 +12,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.tdp2.weatherapp.networking.WeatherClient;
+import com.tdp2.weatherapp.networking.WeatherService;
+
+public class MainActivity extends AppCompatActivity implements WeatherClient {
+
+    private WeatherService weatherService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        weatherService = new WeatherService();
+
+        attachEvents();
+
+        setupInitials();
+
+
+    }
+
+    private void setupInitials() {
+        weatherService.getWeatherForCity();
+    }
+
+    private void attachEvents() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         StorageUtil storageUtil = new StorageUtil(MainActivity.this);
@@ -71,4 +91,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onResponseError() {
+
+    }
+
+    @Override
+    public void onResponseSuccess(Object responseBody) {
+
+    }
 }

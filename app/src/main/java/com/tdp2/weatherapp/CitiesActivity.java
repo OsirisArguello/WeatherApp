@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tdp2.weatherapp.model.City;
@@ -92,6 +93,11 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
 
     @Override
     public void onResponseSuccess(Object responseBody) {
+        cities=(ArrayList<City>) responseBody;
+        ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading_cities);
+        loadingView.setVisibility(View.INVISIBLE);
+
+        displayCities();
 
     }
 
@@ -103,9 +109,15 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
     private void setupInitials() {
         cities=new ArrayList<City>();
         weatherService = new WeatherService();
+        searchCities("ave");
     }
 
     private void searchCities(String query) {
+        if(query.length()>=3){
+            ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading_cities);
+            loadingView.setVisibility(View.VISIBLE);
+            weatherService.getCities(this,query);
+        }
 
     }
 
@@ -117,7 +129,12 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         citiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO: Tomar el id de la ciudad
+                City city = cities.get(position);
+
+                Intent intent = new Intent(CitiesActivity.this, MainActivity.class);
+                intent.putExtra("city", city);
+
+                startActivity(intent);
             }
         });
     }

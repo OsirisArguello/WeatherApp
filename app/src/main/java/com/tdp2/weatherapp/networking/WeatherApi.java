@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface WeatherApi {
 
     //@GET("/weather/{id}")
     //Call<WeatherResponse> getWeatherForCity(@Path("id") String id);
 
-    @GET("/cities/{name}")
-    Call<ArrayList<City>> getCities(@Path("name") String name);
+    @GET("/cities")
+    Call<ArrayList<City>> getCities(@Query("query") String name);
 }

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="action_settings">Settings</string>
+    <string name="app_label">WeatherApp</string>
+    <string name="search_hint">Ingresa las 3 primeras letras de la ciudad</string>
+    <string name="cities_button_title">Cities</string>
+    <string name="search_title">Search Cities</string>
 </resources>

@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
     private void attachEvents() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Nombre de la ciudad");
+        StorageUtil storageUtil = new StorageUtil(MainActivity.this);
+        toolbar.setTitle(storageUtil.getCityName());
 
         setSupportActionBar(toolbar);
 

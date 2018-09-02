@@ -33,6 +33,9 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_cities);
+        setSupportActionBar(toolbar);
+
         setupInitials();
 
         handleIntent(getIntent());
@@ -64,12 +67,11 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         getMenuInflater().inflate(R.menu.search_cities, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+        SearchManager searchManager =(SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =(SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
 
        return true;
     }
@@ -109,7 +111,7 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
     private void setupInitials() {
         cities=new ArrayList<City>();
         weatherService = new WeatherService();
-        searchCities("ave");
+        //searchCities("ave");
     }
 
     private void searchCities(String query) {

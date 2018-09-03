@@ -61,23 +61,33 @@ public class WeatherForecastAdapter extends ArrayAdapter<WeatherForecast> {
         }
 
         dateTextView.setText(date);
-        dayTemperatureTextView.setText(weatherForecast.day.temperature+" ºC");
-        nightTemperatureTextView.setText(weatherForecast.night.temperature+" ºC");
+        if(weatherForecast.day!=null){
+            dayTemperatureTextView.setText(weatherForecast.day.temperature+" ºC");
+            if(weatherForecast.day.iconName!=null) {
 
-        if(weatherForecast.day.iconName!=null) {
-
-            int dayIconId = getContext().getResources().getIdentifier("day" + weatherForecast.day.iconName, "drawable", getContext().getPackageName());
-            dayIcon.setImageResource(dayIconId);
+                int dayIconId = getContext().getResources().getIdentifier("day" + weatherForecast.day.iconName, "drawable", getContext().getPackageName());
+                dayIcon.setImageResource(dayIconId);
+            } else {
+                Log.e("WEATHERSERVICE", "Para dia "+weatherForecast.date+" no devolvio icono del dia");
+            }
         } else {
-            Log.e("WEATHERSERVICE", "Para dia "+weatherForecast.date+" no devolvio icono del dia");
+            dayTemperatureTextView.setText("");
+            dayIcon.setVisibility(View.INVISIBLE);
         }
 
-        if(weatherForecast.night.iconName!=null) {
-            int nightIconId = getContext().getResources().getIdentifier("night" + weatherForecast.night.iconName, "drawable", getContext().getPackageName());
-            dayIcon.setImageResource(nightIconId);
+        if(weatherForecast.night!=null){
+            nightTemperatureTextView.setText(weatherForecast.night.temperature+" ºC");
+            if(weatherForecast.night.iconName!=null) {
+                int nightIconId = getContext().getResources().getIdentifier("night" + weatherForecast.night.iconName, "drawable", getContext().getPackageName());
+                nightIcon.setImageResource(nightIconId);
+            } else {
+                Log.e("WEATHERSERVICE", "Para dia "+weatherForecast.date+" no devolvio icono de la noche");
+            }
         } else {
-            Log.e("WEATHERSERVICE", "Para dia "+weatherForecast.date+" no devolvio icono de la noche");
+            nightTemperatureTextView.setText("");
+            nightIcon.setVisibility(View.INVISIBLE);
         }
+
 
         return convertView;
     }

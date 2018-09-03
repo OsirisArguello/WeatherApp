@@ -16,7 +16,7 @@ import com.tdp2.weatherapp.model.WeatherResponse;
 
 import java.util.ArrayList;
 
-public class WeatherDayAdapter extends ArrayAdapter<Date> {
+public class WeatherDayAdapter extends ArrayAdapter<String> {
 
     WeatherResponse weatherResponse;
 
@@ -28,7 +28,7 @@ public class WeatherDayAdapter extends ArrayAdapter<Date> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        final Date date = getItem(position);
+        final String date = getItem(position);
         final Weather weather = weatherResponse.getWeatherFor(date);
 
         // Check if an existing view is being reused, otherwise inflate the view

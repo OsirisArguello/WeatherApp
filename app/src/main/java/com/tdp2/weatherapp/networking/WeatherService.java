@@ -3,9 +3,11 @@ package com.tdp2.weatherapp.networking;
 import android.util.Log;
 
 import com.tdp2.weatherapp.model.City;
+import com.tdp2.weatherapp.model.Weather;
 import com.tdp2.weatherapp.model.WeatherResponse;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,9 +21,9 @@ public class WeatherService {
     }
 
     public void getWeatherForCity(final WeatherClient weatherClient, final City city){
-        weatherApi.getWeatherForCity(city.id).enqueue(new Callback<WeatherResponse>() {
+        weatherApi.getWeatherForCity(city.id).enqueue(new Callback<Map<String, Weather>>() {
             @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+            public void onResponse(Call<Map<String, Weather>> call, Response<Map<String, Weather>> response) {
                 if (response.code() > 199 && response.code() < 300) {
                     if(response.body() != null) {
                         Log.i("WEATHERCITYSERVICE", response.body().toString());
@@ -41,7 +43,7 @@ public class WeatherService {
             }
 
             @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+            public void onFailure(Call<Map<String, Weather>> call, Throwable t) {
                 weatherClient.onResponseError();
                 Log.e("WEATHERCITYSERVICE", t.getMessage());
             }

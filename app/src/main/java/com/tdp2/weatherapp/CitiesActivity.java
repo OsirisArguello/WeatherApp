@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +25,7 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
 
     ArrayList<City> cities;
     WeatherService weatherService;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,22 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_cities);
-        setSupportActionBar(toolbar);
+
+        attachEvents();
 
         setupInitials();
 
         handleIntent(getIntent());
+    }
+
+    private void attachEvents() {
+
+        SearchManager searchManager =(SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView =findViewById(R.id.search_view);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setFocusable(false);
     }
 
     @Override
@@ -55,7 +65,7 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
 
     }
 
-    @Override
+    /*@Override
     public boolean onMenuOpened(int featureId, Menu menu) {
 
         return super.onMenuOpened(featureId, menu);
@@ -74,7 +84,7 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         searchView.setSubmitButtonEnabled(true);
 
        return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -83,7 +93,6 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.cities_button) {
             Intent citiesActivity = new Intent(getApplicationContext(), CitiesActivity.class);
             startActivity(citiesActivity);
@@ -111,7 +120,6 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
     private void setupInitials() {
         cities=new ArrayList<City>();
         weatherService = new WeatherService();
-        //searchCities("ave");
     }
 
     private void searchCities(String query) {

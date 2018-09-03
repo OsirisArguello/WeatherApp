@@ -10,12 +10,16 @@ public class WeatherResponse {
     @Expose
     public Map<String, Weather> dateWeatherMap;
 
+    public void setDateWeatherMap(Map<String, Weather> dateWeatherMap) {
+        this.dateWeatherMap = dateWeatherMap;
+    }
+
     public ArrayList<String> getDates() {
-        return (ArrayList<String>) dateWeatherMap.keySet().toArray()[0];
+        return new ArrayList<String>(dateWeatherMap.keySet());
     }
 
     public Weather getWeatherFor(String date) {
-        return new Weather();
+        return dateWeatherMap.get(date);
     }
 }
 

@@ -1,7 +1,6 @@
 package com.tdp2.weatherapp;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,24 +9,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tdp2.weatherapp.model.City;
+import com.tdp2.weatherapp.model.Weather;
 import com.tdp2.weatherapp.model.WeatherResponse;
-
 import com.tdp2.weatherapp.networking.WeatherClient;
 import com.tdp2.weatherapp.networking.WeatherService;
-import com.tdp2.weatherapp.view.CityAdapter;
 import com.tdp2.weatherapp.view.WeatherDayAdapter;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements WeatherClient {
 
-    private WeatherResponse weatherDays;
+    private WeatherResponse weatherDays = new WeatherResponse();
     private WeatherService weatherService;
 
     @Override
@@ -119,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
 
     @Override
     public void onResponseSuccess(Object responseBody) {
-        weatherDays = (WeatherResponse) responseBody;
+        weatherDays.setDateWeatherMap((Map<String,Weather>)responseBody);
 
         final ListView listView = (ListView) findViewById(R.id.list_of_days);
 

@@ -21,6 +21,7 @@ public class WeatherDayAdapter extends ArrayAdapter<String> {
     WeatherResponse weatherResponse;
 
     public WeatherDayAdapter(@NonNull Context context, @NonNull WeatherResponse weather) {
+
         super(context, 0, weather.getDates());
         weatherResponse = weather;
     }
@@ -38,7 +39,7 @@ public class WeatherDayAdapter extends ArrayAdapter<String> {
         // TODO: WIP, use weather textView and use icons
         TextView cityNameTextView = (TextView) convertView.findViewById(R.id.city_name);
 
-        cityNameTextView.setText(weather.day.get("temperature"));
+        cityNameTextView.setText(date);
 
         return convertView;
     }

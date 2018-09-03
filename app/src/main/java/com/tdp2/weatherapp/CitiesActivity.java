@@ -92,7 +92,9 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        StorageUtil storageUtil = new StorageUtil(this);
+        storageUtil.saveCityName(item.getTitle().toString());
+        storageUtil.saveCityCode(id);
         if (id == R.id.cities_button) {
             Intent citiesActivity = new Intent(getApplicationContext(), CitiesActivity.class);
             startActivity(citiesActivity);

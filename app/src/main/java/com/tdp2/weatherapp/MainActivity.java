@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.tdp2.weatherapp.model.City;
 import com.tdp2.weatherapp.networking.WeatherClient;
 import com.tdp2.weatherapp.networking.WeatherService;
 
@@ -40,8 +41,21 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
     private void attachEvents() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        StorageUtil storageUtil = new StorageUtil(MainActivity.this);
-        toolbar.setTitle(storageUtil.getCityName());
+        //Este city viene desde la segunda pantalla
+        City city = (City) getIntent().getSerializableExtra("city");
+
+        if (city!=null){
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle(city.name);
+        } else {
+            StorageUtil storageUtil = new StorageUtil(MainActivity.this);
+            if(!storageUtil.getCityName().isEmpty()){
+                toolbar.setTitle(storageUtil.getCityName());
+            }
+
+        }
+
+        //TODO CON CITY.ID INVOCAR AL SERVICIO DE WEATHER
 
         setSupportActionBar(toolbar);
 
@@ -57,12 +71,6 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
 
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        //toolbar.dismissPopupMenus();
-
-        Toast.makeText(this, "Presionaste el menu",
-                Toast.LENGTH_LONG).show();
 
         return super.onMenuOpened(featureId, menu);
     }

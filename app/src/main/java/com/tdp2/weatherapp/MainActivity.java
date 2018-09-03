@@ -10,14 +10,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tdp2.weatherapp.model.City;
+import com.tdp2.weatherapp.model.WeatherResponse;
+
 import com.tdp2.weatherapp.networking.WeatherClient;
 import com.tdp2.weatherapp.networking.WeatherService;
+import com.tdp2.weatherapp.view.CityAdapter;
+import com.tdp2.weatherapp.view.WeatherDayAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements WeatherClient {
 
+    private WeatherResponse weatherDays;
     private WeatherService weatherService;
 
     @Override
@@ -35,7 +45,9 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
     }
 
     private void setupInitials() {
-        weatherService.getWeatherForCity();
+        City city = new City();
+        city.id = 3435910; // Ciudad de BsAs
+        weatherService.getWeatherForCity(this,city);
     }
 
     private void attachEvents() {
@@ -101,11 +113,21 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
 
     @Override
     public void onResponseError() {
-
+        Toast.makeText(this, "Response Error",
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onResponseSuccess(Object responseBody) {
+        weatherDays = (WeatherResponse) responseBody;
 
+        final ListView listView = (ListView) findViewById(R.id.list_of_days);
+
+        WeatherDayAdapter adapter = new WeatherDayAdapter(this, weatherDays);
+        listView.setAdapter(adapter);
+
+        Toast.makeText(this, "Response Success",
+                Toast.LENGTH_LONG).show();
+        //citiesListView.setSelection();
     }
 }

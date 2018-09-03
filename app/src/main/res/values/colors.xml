@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffdc9e</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="searchbox">#ffdc9e</color>
-    <color name="lightGray">#7d7c7a</color>
+        <color name="colorPrimary">#ffdc9e</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="colorAccent">#FF4081</color>
+        <color name="textColorPrimary">#212121</color>
+        <color name="textColorSecondary">#787878</color>
+        <color name="background">#ffffff</color>
+        <color name="searchbox">#ffdc9e</color>
+        <color name="lightGray">#7d7c7a</color>
 </resources>

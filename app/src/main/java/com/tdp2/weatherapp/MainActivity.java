@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         attachEvents();
 
         setupInitials();
@@ -60,13 +63,17 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
             city.name=storageUtil.getCityName();
             city.id=storageUtil.getCityCode();
 
+        } else {
+            StorageUtil storageUtil = new StorageUtil(MainActivity.this);
+            storageUtil.saveCityName(city.name);
+            storageUtil.saveCityCode(city.id);
         }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(city.name);
 
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.lightGray));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.textColorSecondary));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +85,7 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
     }
 
     private void lookForWeather(Integer id) {
-        //ListView listView = findViewById(R.id.list_of_days);
-        //listView.setVisibility(View.INVISIBLE);
+
         ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading);
         loadingView.setVisibility(View.VISIBLE);
         weatherService.getWeatherForCity(this,id);
@@ -139,6 +145,5 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
         WeatherForecastAdapter weatherForecastAdapter = new WeatherForecastAdapter(this, nextFiveDaysForecast);
         forecastListView.setAdapter(weatherForecastAdapter);
 
-        //forecastListView.setVisibility(View.VISIBLE);
     }
 }

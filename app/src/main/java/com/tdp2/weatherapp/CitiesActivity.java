@@ -66,22 +66,6 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        StorageUtil storageUtil = new StorageUtil(this);
-        storageUtil.saveCityName(item.getTitle().toString());
-        storageUtil.saveCityCode(id);
-        if (id == R.id.cities_button) {
-            Intent citiesActivity = new Intent(getApplicationContext(), CitiesActivity.class);
-            startActivity(citiesActivity);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onResponseSuccess(Object responseBody) {
         cities=(ArrayList<City>) responseBody;
         ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading_cities);

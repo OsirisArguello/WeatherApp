@@ -135,7 +135,6 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
         final ListView citiesListView = (ListView) findViewById(R.id.list_of_cities);
         CityAdapter cityAdapter = new CityAdapter(this, cities);
         citiesListView.setAdapter(cityAdapter);
-        //citiesListView.setSelection();
         citiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -72,13 +72,14 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                lookForWeather(city.id);
             }
         });
     }
 
     private void lookForWeather(Integer id) {
+        ListView listView = findViewById(R.id.list_of_days);
+        listView.setVisibility(View.INVISIBLE);
         ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading);
         loadingView.setVisibility(View.VISIBLE);
         weatherService.getWeatherForCity(this,id);
@@ -135,6 +136,6 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
         WeatherForecastAdapter weatherForecastAdapter = new WeatherForecastAdapter(this, nextFiveDaysForecast);
         forecastListView.setAdapter(weatherForecastAdapter);
 
-
+        forecastListView.setVisibility(View.VISIBLE);
     }
 }

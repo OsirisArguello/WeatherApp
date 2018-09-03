@@ -4,10 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tdp2.weatherapp.R;
@@ -42,6 +44,9 @@ public class WeatherForecastAdapter extends ArrayAdapter<WeatherForecast> {
         TextView dayTemperatureTextView = (TextView) convertView.findViewById(R.id.day_temperature);
         TextView nightTemperatureTextView = (TextView) convertView.findViewById(R.id.night_temperature);
 
+        ImageView dayIcon = (ImageView) convertView.findViewById(R.id.dayIcon);
+        ImageView nightIcon = (ImageView) convertView.findViewById(R.id.nightIcon);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date="";
 
@@ -58,6 +63,21 @@ public class WeatherForecastAdapter extends ArrayAdapter<WeatherForecast> {
         dateTextView.setText(date);
         dayTemperatureTextView.setText(weatherForecast.day.temperature+" ºC");
         nightTemperatureTextView.setText(weatherForecast.night.temperature+" ºC");
+
+        if(weatherForecast.day.iconName!=null) {
+
+            int dayIconId = getContext().getResources().getIdentifier("day" + weatherForecast.day.iconName, "drawable", getContext().getPackageName());
+            dayIcon.setImageResource(dayIconId);
+        } else {
+            Log.e("WEATHERSERVICE", "Para dia "+weatherForecast.date+" no devolvio icono del dia");
+        }
+
+        if(weatherForecast.night.iconName!=null) {
+            int nightIconId = getContext().getResources().getIdentifier("night" + weatherForecast.night.iconName, "drawable", getContext().getPackageName());
+            dayIcon.setImageResource(nightIconId);
+        } else {
+            Log.e("WEATHERSERVICE", "Para dia "+weatherForecast.date+" no devolvio icono de la noche");
+        }
 
         return convertView;
     }

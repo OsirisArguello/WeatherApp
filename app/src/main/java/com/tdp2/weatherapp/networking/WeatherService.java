@@ -3,6 +3,7 @@ package com.tdp2.weatherapp.networking;
 import android.util.Log;
 
 import com.tdp2.weatherapp.model.City;
+import com.tdp2.weatherapp.model.WeatherResponse;
 
 import java.util.ArrayList;
 
@@ -17,8 +18,34 @@ public class WeatherService {
         weatherApi=ApiClient.getInstance().getWeatherClient();
     }
 
-    public void getWeatherForCity(){
-        //TODO
+    public void getWeatherForCity(final WeatherClient weatherClient, final City city){
+        weatherApi.getWeatherForCity(city.id).enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                if (response.code() > 199 && response.code() < 300) {
+                    if(response.body() != null) {
+                        Log.i("WEATHERCITYSERVICE", response.body().toString());
+                        weatherClient.onResponseSuccess(response.body());
+                    }else {
+                        Log.i("WEATHERCITYSERVICE", "NO RESPONSE");
+                        weatherClient.onResponseError();
+                    }
+                } else {
+                    if(response.body() != null) {
+                        Log.e("WEATHERCITYSERVICE", response.body().toString());
+                    }else {
+                        Log.e("WEATHERCITYSERVICE", "NO RESPONSE");
+                    }
+                    weatherClient.onResponseError();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                weatherClient.onResponseError();
+                Log.e("WEATHERCITYSERVICE", t.getMessage());
+            }
+        });
     }
 
     public void getCities(final WeatherClient weatherClient, final String name){

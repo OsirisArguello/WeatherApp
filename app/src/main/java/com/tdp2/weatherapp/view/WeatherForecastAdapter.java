@@ -40,15 +40,15 @@ public class WeatherForecastAdapter extends ArrayAdapter<WeatherForecast> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.weather_forecast_view, parent, false);
         }
         // Lookup view for data population
-        TextView dateTextView = (TextView) convertView.findViewById(R.id.date);
-        TextView dayTemperatureTextView = (TextView) convertView.findViewById(R.id.day_temperature);
-        TextView nightTemperatureTextView = (TextView) convertView.findViewById(R.id.night_temperature);
+        TextView dateTextView = convertView.findViewById(R.id.date);
+        TextView dayTemperatureTextView = convertView.findViewById(R.id.day_temperature);
+        TextView nightTemperatureTextView = convertView.findViewById(R.id.night_temperature);
 
-        ImageView dayIcon = (ImageView) convertView.findViewById(R.id.dayIcon);
-        ImageView nightIcon = (ImageView) convertView.findViewById(R.id.nightIcon);
+        ImageView dayIcon = convertView.findViewById(R.id.dayIcon);
+        ImageView nightIcon = convertView.findViewById(R.id.nightIcon);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String date="";
+        String date;
 
         if(position==0){
             date="Hoy";

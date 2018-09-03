@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
     }
 
     private void lookForWeather(Integer id) {
-        ListView listView = findViewById(R.id.list_of_days);
-        listView.setVisibility(View.INVISIBLE);
+        //ListView listView = findViewById(R.id.list_of_days);
+        //listView.setVisibility(View.INVISIBLE);
         ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading);
         loadingView.setVisibility(View.VISIBLE);
         weatherService.getWeatherForCity(this,id);
@@ -117,7 +117,10 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
 
     @Override
     public void onResponseError() {
-
+        ProgressBar loadingView = (ProgressBar) findViewById(R.id.loading);
+        loadingView.setVisibility(View.INVISIBLE);
+        Toast.makeText(this, "No fue posible conectarse al servidor, por favor reintente más tarde",
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -136,6 +139,6 @@ public class MainActivity extends AppCompatActivity implements WeatherClient {
         WeatherForecastAdapter weatherForecastAdapter = new WeatherForecastAdapter(this, nextFiveDaysForecast);
         forecastListView.setAdapter(weatherForecastAdapter);
 
-        forecastListView.setVisibility(View.VISIBLE);
+        //forecastListView.setVisibility(View.VISIBLE);
     }
 }

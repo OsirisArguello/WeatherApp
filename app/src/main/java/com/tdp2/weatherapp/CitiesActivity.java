@@ -65,32 +65,9 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
 
     }
 
-    /*@Override
-    public boolean onMenuOpened(int featureId, Menu menu) {
-
-        return super.onMenuOpened(featureId, menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search_cities, menu);
-
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =(SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =(SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
-        searchView.setSubmitButtonEnabled(true);
-
-       return true;
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         StorageUtil storageUtil = new StorageUtil(this);
         storageUtil.saveCityName(item.getTitle().toString());
@@ -116,7 +93,8 @@ public class CitiesActivity extends AppCompatActivity implements WeatherClient {
 
     @Override
     public void onResponseError() {
-
+        Toast.makeText(this, "No fue posible conectarse al servidor, por favor reintente más tarde",
+                Toast.LENGTH_LONG).show();
     }
 
     private void setupInitials() {
